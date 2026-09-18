@@ -10,20 +10,20 @@ jobs:
     name: Build on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     permissions:
-      contents: write  
+      contents: write
     strategy:
       matrix:
         include:
           - os: windows-latest
-            artifact_name: LoveYou-Windows.zip
-            asset_path: dist/LoveYou-Windows.zip
+            asset_name: LoveYou.exe
+            asset_path: dist/LoveYou.exe
             sep: ";"
           - os: ubuntu-latest
-            artifact_name: LoveYou-Linux.tar.gz
-            asset_path: dist/LoveYou-Linux.tar.gz
+            asset_name: LoveYou-Linux
+            asset_path: dist/LoveYou-Linux
             sep: ":"
           - os: macos-latest
-            artifact_name: LoveYou-macOS.zip
+            asset_name: LoveYou-macOS.zip
             asset_path: dist/LoveYou-macOS.zip
             sep: ":"
 
@@ -44,14 +44,12 @@ jobs:
       - name: Build Executable (Windows)
         if: matrix.os == 'windows-latest'
         run: |
-          pyinstaller --noconfirm --onedir --windowed --name "LoveYou" --add-data "love_you.mp3${{ matrix.sep }}." LoveYou.py
-          powershell Compress-Archive -Path dist/LoveYou -DestinationPath dist/LoveYou-Windows.zip
+          pyinstaller --noconfirm --onefile --windowed --name "LoveYou" --add-data "love_you.mp3${{ matrix.sep }}." LoveYou.py
 
       - name: Build Executable (Linux)
         if: matrix.os == 'ubuntu-latest'
         run: |
-          pyinstaller --noconfirm --onedir --windowed --name "LoveYou" --add-data "love_you.mp3${{ matrix.sep }}." LoveYou.py
-          tar -czvf dist/LoveYou-Linux.tar.gz -C dist LoveYou
+          pyinstaller --noconfirm --onefile --windowed --name "LoveYou-Linux" --add-data "love_you.mp3${{ matrix.sep }}." LoveYou.py
 
       - name: Build Executable (macOS)
         if: matrix.os == 'macos-latest'
