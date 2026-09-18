@@ -36,25 +36,75 @@ Each particle renders a short phrase in a randomly assigned color, with a soft m
 - Python 3.8 or later
 - [Pygame](https://www.pygame.org/) library
 
-Install the dependency with:
-
-```bash
-pip install pygame
-```
 
 ## Assets
 
 The script expects an audio file named `love_you.mp3` to be present in the same directory as the script. If this file is missing or fails to load, the animation will still run, but without music playback (an error message will be printed to the console).
 
-## Usage
-
-Run the script directly with Python:
-
+## Setup & Usage
+ 
+The project is distributed as source only; run it with a local Python installation using the platform-specific steps below.
+ 
+### Linux
+ 
 ```bash
+# Install Python and required system libraries
+sudo apt update
+sudo apt install python3 python3-venv python3-pip
+ 
+# Create and activate a virtual environment
+python3 -m venv venv
+source venv/bin/activate
+ 
+# Install dependencies
+pip install pygame
+ 
+# Run the animation
+python3 LoveYou.py
+```
+ 
+> Ensure an X11 or Wayland display server is available; the script will not run on a headless session without a virtual display (e.g. `xvfb`).
+ 
+### macOS
+ 
+```bash
+# Install Python via Homebrew if not already present
+brew install python
+ 
+# Create and activate a virtual environment
+python3 -m venv venv
+source venv/bin/activate
+ 
+# Install dependencies
+pip install pygame
+ 
+# Run the animation
+python3 LoveYou.py
+```
+ 
+> On first run, macOS may prompt for permission to control the display or access audio devices — allow these prompts for the animation and music to work correctly.
+ 
+### Windows
+ 
+```powershell
+# Ensure Python 3.8+ is installed and available on PATH
+ 
+# Create and activate a virtual environment
+python -m venv venv
+venv\Scripts\activate
+ 
+# Install dependencies
+pip install pygame
+ 
+# Run the animation
 python LoveYou.py
 ```
-
-The application launches in full-screen mode at the display's native resolution.
+ 
+> Run the command from PowerShell or Command Prompt in the project directory. If `python` is not recognized, use `py` instead (e.g. `py -m venv venv`).
+ 
+---
+ 
+In all cases, the application launches in full-screen mode at the display's native resolution.
 
 ### Controls
 
