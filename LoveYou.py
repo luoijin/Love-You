@@ -4,6 +4,12 @@ import math
 import pygame
 import random
 
+def resource_path(relative_path):
+    # Get absolute path to resource, works for dev and PyInstaller
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
+
 WIDTH, HEIGHT = 2000, 1200
 BACKGROUND_COLOR = (0, 0, 0)
 FPS = 60
@@ -142,7 +148,7 @@ def main():
     audio_loaded = False
     try:
         pygame.mixer.init()
-        pygame.mixer.music.load("love_you.mp3")
+        pygame.mixer.music.load(resource_path("love_you.mp3"))
         pygame.mixer.music.play()
         audio_loaded = True
     except Exception as e:
