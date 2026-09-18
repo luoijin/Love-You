@@ -1,0 +1,65 @@
+name: Build Cross-Platform Executables
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            artifact_name: LoveYou-Windows.zip
+            asset_path: dist/LoveYou-Windows.zip
+            sep: ";"
+          - os: ubuntu-latest
+            artifact_name: LoveYou-Linux.tar.gz
+            asset_path: dist/LoveYou-Linux.tar.gz
+            sep: ":"
+          - os: macos-latest
+            artifact_name: LoveYou-macOS.zip
+            asset_path: dist/LoveYou-macOS.zip
+            sep: ":"
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pygame pyinstaller
+
+      - name: Build Executable (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          pyinstaller --noconfirm --onedir --windowed --name "LoveYou" --add-data "love_you.mp3${{ matrix.sep }}." LoveYou.py
+          powershell Compress-Archive -Path dist/LoveYou -DestinationPath dist/LoveYou-Windows.zip
+
+      - name: Build Executable (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          pyinstaller --noconfirm --onedir --windowed --name "LoveYou" --add-data "love_you.mp3${{ matrix.sep }}." LoveYou.py
+          tar -czvf dist/LoveYou-Linux.tar.gz -C dist LoveYou
+
+      - name: Build Executable (macOS)
+        if: matrix.os == 'macos-latest'
+        run: |
+          pyinstaller --noconfirm --onedir --windowed --name "LoveYou" --add-data "love_you.mp3${{ matrix.sep }}." LoveYou.py
+          cd dist && zip -r LoveYou-macOS.zip LoveYou.app
+
+      - name: Upload Binaries to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ matrix.asset_path }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
