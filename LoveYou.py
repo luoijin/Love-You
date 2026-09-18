@@ -1,3 +1,5 @@
+import os
+import sys
 import math
 import pygame
 import random
@@ -140,7 +142,7 @@ def main():
     audio_loaded = False
     try:
         pygame.mixer.init()
-        pygame.mixer.music.load("a.mp3")
+        pygame.mixer.music.load("love_you.mp3")
         pygame.mixer.music.play()
         audio_loaded = True
     except Exception as e:
