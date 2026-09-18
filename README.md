@@ -2,6 +2,15 @@
 
 A full-screen generative art piece built with **Pygame** that renders an animated heart shape composed of glowing, flickering text particles, synchronized with background music.
 
+### Direct Downloads 
+
+[![Download Linux](https://img.shields.io/badge/Download-Linux_Binary-7C3AED?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/luoijin/Love-You/releases/download/v1.0.1/LoveYou-Linux)
+[![Download macOS App](https://img.shields.io/badge/Download-macOS_.app-7C3AED?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/luoijin/Love-You/releases/download/v1.0.1/LoveYou-macOS.zip)
+[![Download Windows](https://img.shields.io/badge/Download-Windows_.exe-7C3AED?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/luoijin/Love-You/releases/download/v1.0.1/LoveYou.exe)
+
+[![Total Downloads](https://img.shields.io/github/downloads/luoijin/Love-You/total?style=for-the-badge&logo=github&logoColor=7C3AED&label=TOTAL%20DOWNLOADS&labelColor=0f172a&color=7C3AED&v=1)](https://github.com/luoijin/Love-You/releases)
+
+
 ## Overview
 
 The program procedurally constructs a heart shape from parametric equations, then populates it with two categories of animated text particles:
